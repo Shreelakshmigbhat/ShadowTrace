@@ -10,7 +10,10 @@
     "db:up": "docker compose --env-file .env.local up -d",
     "db:down": "docker compose --env-file .env.local down",
     "db:init": "node --env-file=.env.local scripts/run-sql.mjs",
-    "db:reset": "node --env-file=.env.local scripts/run-sql.mjs --reset"
+    "db:reset": "node --env-file=.env.local scripts/run-sql.mjs --reset",
+    "mongo:setup": "node --env-file=.env.local db/mongo/evidence_artifacts.setup.ts",
+    "mongo:seed": "node --env-file=.env.local db/mongo/evidence_artifacts.seed.ts",
+    "mongo:pipelines": "node --env-file=.env.local db/mongo/evidence_artifacts.pipelines.ts"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
