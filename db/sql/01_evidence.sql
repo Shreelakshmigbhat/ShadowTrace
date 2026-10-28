@@ -84,28 +84,4 @@ CREATE TABLE audit_logs (
   INDEX idx_audit_target (target_table, target_id)  -- "show the history of evidence #7"
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------------
--- "collected_at must not be in the future": a CHECK cannot call NOW(), so use triggers.
--- One trigger per event (MySQL allows only one event per trigger).
--- ---------------------------------------------------------------------------
-DELIMITER $$
-
-CREATE TRIGGER trg_evidence_bi_date
-BEFORE INSERT ON evidence
-FOR EACH ROW
-BEGIN
-  IF NEW.collected_at > NOW() THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'collected_at cannot be in the future';
-  END IF;
-END$$
-
-CREATE TRIGGER trg_evidence_bu_date
-BEFORE UPDATE ON evidence
-FOR EACH ROW
-BEGIN
-  IF NEW.collected_at > NOW() THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'collected_at cannot be in the future';
-  END IF;
-END$$
-
-DELIMITER ;
+-- NOTE: the "collected_at not in the future" triggers live in 11_evidence_advanced.sql.
