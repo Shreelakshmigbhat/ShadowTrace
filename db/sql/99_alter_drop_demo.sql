@@ -1,0 +1,1 @@
+-- 99_alter_drop_demo.sql (owner: either) - placeholder
