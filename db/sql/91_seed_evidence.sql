@@ -1,1 +1,83 @@
--- 91_seed_evidence.sql (owner: A) - placeholder
+-- 91_seed_evidence.sql (Member A): sample evidence data
+-- Assumes users 1-8 exist (created by 90_seed_core.sql): 1 = ADMIN, 2-4 = INVESTIGATOR, 5-8 = ANALYST.
+-- Inserted directly (not via the transfer procedure), so evidence.custodian_id is set to the
+-- recipient of each evidence's LAST transfer (or the collector if it was never transferred).
+USE shadowtrace;
+
+INSERT INTO evidence_types (type_name) VALUES
+  ('Disk Image'),
+  ('Mobile Device'),
+  ('Network Capture'),
+  ('Email Archive'),
+  ('CCTV Footage'),
+  ('Document Scan');
+
+INSERT INTO evidence (status, file_hash, file_name, collected_at, evidence_type_id, collected_by, custodian_id) VALUES
+  ('IN_ANALYSIS', 'a74eae6bca084e500ec981a6e953b437ba1d097c35f34dd9b209749fb2087aca', 'workstation_001.E01', '2025-01-06 15:14:00', 1, 2, 5),
+  ('RELEASED', '5c9b3f0f1a62fdb4ae0f731d2a20928edc523ccf967e2e108f33af67790bd9de', 'phone_002.ufdr', '2025-01-15 09:45:00', 2, 3, 7),
+  ('RELEASED', '62574f9ad61ded5b41ff156732478b03043fec84489c621465f2ae87fe208d8b', 'gateway_003.pcap', '2025-01-24 10:05:00', 3, 4, 6),
+  ('IN_STORAGE', '79cd71fd8f34bbcadf2de5133a12cd799ad50943c40d574a7e584842e57e6edf', 'mailbox_004.pst', '2025-02-02 14:44:00', 4, 2, 2),
+  ('IN_STORAGE', '063db07395bc6b38d99a590f707218beb940e7ee5538ab370e645b63d4666e80', 'lobby_cam_005.mp4', '2025-02-11 08:53:00', 5, 3, 5),
+  ('COLLECTED', 'e36b88f6f52dd42c6f4ed5086e773e326f280b7ac72dc7eb2fe6aaae172915e3', 'contract_006.pdf', '2025-02-20 12:29:00', 6, 4, 4),
+  ('DESTROYED', '47821027fe06d67589168f3006a7a61e8a4b9644d3a2f2ed0204addbbb04e1d9', 'workstation_007.E01', '2025-03-01 15:27:00', 1, 2, 1),
+  ('DESTROYED', '42860ceb1b03839ab799b6871e4eced5f39dbe9518d1c5265d8caaf1180c39a1', 'phone_008.ufdr', '2025-03-10 16:49:00', 2, 3, 3),
+  ('IN_STORAGE', '212e07d7cffa5dfcb5a26799957b6c66fc6a117b0dfce2ac5c80c6fe35444817', 'gateway_009.pcap', '2025-03-19 15:49:00', 3, 4, 4),
+  ('IN_ANALYSIS', 'bf37595d8a2db2df1d202c3157e4af7994327353b5354ac618b35993caef6575', 'mailbox_010.pst', '2025-03-28 13:16:00', 4, 2, 5),
+  ('IN_ANALYSIS', 'dc3f3fe96ae6fc3cc4584a8a9841ff5811481a2302d92502dac3aea1a6b71f81', 'lobby_cam_011.mp4', '2025-04-06 15:53:00', 5, 3, 5),
+  ('RELEASED', '2c579d5bddbec702e90f45f8f989ce8f87410e0a98911d8fa50215dbcbebb74c', 'contract_012.pdf', '2025-04-15 15:30:00', 6, 4, 2),
+  ('IN_STORAGE', '7ffd3c2211e67d9346d9fb9f2e261c14d13dfe3f62d11c075c571ec015e0017a', 'workstation_013.E01', '2025-04-24 10:32:00', 1, 2, 2),
+  ('IN_ANALYSIS', '480c114713dbb3bb0eb19021407e58074958ccd9bfc97c0f4a1797eb87c6bdd1', 'phone_014.ufdr', '2025-05-03 14:31:00', 2, 3, 4),
+  ('IN_ANALYSIS', 'c8f05c181ef71f41b5ca7ae31cfeaf5fe2c51e4916e54189a9257b1a9e1848dd', 'gateway_015.pcap', '2025-05-12 08:29:00', 3, 4, 1),
+  ('COLLECTED', 'e740603de75bc34c40db429134bbda9ff890d65916705f7b8eb21381aeb724e8', 'mailbox_016.pst', '2025-05-21 13:11:00', 4, 2, 2),
+  ('DESTROYED', 'abe0a57691c8782147ac9fd29749a26ddba0da2c87758d6088c7ce6a665492ff', 'lobby_cam_017.mp4', '2025-05-30 14:16:00', 5, 3, 2),
+  ('RELEASED', '3c31973e4c40f110791218fb38ecfdd19703bcd3a3e913532eda9c0da6b0c52a', 'contract_018.pdf', '2025-06-08 13:08:00', 6, 4, 3),
+  ('IN_STORAGE', '41a79add30569c7ea2f7d767e34633119b7036d7792ebdc9350be9c522d69672', 'workstation_019.E01', '2025-06-17 10:38:00', 1, 2, 2),
+  ('IN_STORAGE', '285513a1e8954d3902adf428a60b5df932472a0a8355a17ed697c624c36ee719', 'phone_020.ufdr', '2025-06-26 15:14:00', 2, 3, 4),
+  ('IN_STORAGE', '2d32f5629c7ec99b007445357520b4f8b96400ff3d310906fd6a0f79ad204c49', 'gateway_021.pcap', '2025-07-05 13:24:00', 3, 4, 4),
+  ('IN_STORAGE', '9e92d8ed5bf74b7765304b69c3cf3ee1920e25253a3f6b7fe3fa68c5396cc2ea', 'mailbox_022.pst', '2025-07-14 14:13:00', 4, 2, 4),
+  ('DESTROYED', '98815cc83a4992312105137fedf5acf5efd67451d116263986a062367c9adb21', 'lobby_cam_023.mp4', '2025-07-23 14:40:00', 5, 3, 8),
+  ('IN_STORAGE', '08c6429e5fe4db44302369745e505babced56dca7db0abf81d0350efdf5cbf34', 'contract_024.pdf', '2025-08-01 13:35:00', 6, 4, 6),
+  ('IN_STORAGE', 'e39619807060bf2533fd56fafc2d6cb59f59e8575b6fced45e48465eedda2728', 'workstation_025.E01', '2025-08-10 16:26:00', 1, 2, 2);
+
+-- 40 transfers. evidence_id is the row order above (1-25).
+INSERT INTO evidence_transfers (reason, transferred_at, evidence_id, from_user_id, to_user_id) VALUES
+  ('Court preparation review', '2025-01-11 22:14:00', 1, 2, 4),
+  ('Shift change handover', '2025-01-16 00:14:00', 1, 4, 7),
+  ('Court preparation review', '2025-01-17 07:14:00', 1, 7, 6),
+  ('Re-verification of file hash', '2025-01-20 08:14:00', 1, 6, 5),
+  ('Court preparation review', '2025-01-21 11:45:00', 2, 3, 6),
+  ('Requested by lead investigator', '2025-01-25 11:45:00', 2, 6, 3),
+  ('Moved to secure storage', '2025-01-27 13:05:00', 3, 4, 1),
+  ('Moved to secure storage', '2025-01-28 18:45:00', 2, 3, 7),
+  ('Shift change handover', '2025-01-28 20:05:00', 3, 1, 6),
+  ('Second-opinion examination', '2025-02-06 16:44:00', 4, 2, 4),
+  ('Requested by lead investigator', '2025-02-12 21:44:00', 4, 4, 3),
+  ('Shift change handover', '2025-02-13 09:53:00', 5, 3, 5),
+  ('Shift change handover', '2025-02-17 03:44:00', 4, 3, 7),
+  ('Re-verification of file hash', '2025-02-20 06:44:00', 4, 7, 4),
+  ('Returned after imaging completed', '2025-02-24 09:44:00', 4, 4, 2),
+  ('Requested by lead investigator', '2025-03-05 17:27:00', 7, 2, 5),
+  ('Second-opinion examination', '2025-03-06 22:27:00', 7, 5, 4),
+  ('Returned after imaging completed', '2025-03-09 00:27:00', 7, 4, 1),
+  ('Returned after imaging completed', '2025-03-13 21:49:00', 8, 3, 7),
+  ('Re-verification of file hash', '2025-03-18 01:49:00', 8, 7, 3),
+  ('Court preparation review', '2025-04-01 16:16:00', 10, 2, 8),
+  ('Handed over for lab analysis', '2025-04-07 21:16:00', 10, 8, 2),
+  ('Returned after imaging completed', '2025-04-10 21:53:00', 11, 3, 5),
+  ('Returned after imaging completed', '2025-04-11 02:16:00', 10, 2, 7),
+  ('Re-verification of file hash', '2025-04-14 08:16:00', 10, 7, 5),
+  ('Handed over for lab analysis', '2025-04-21 20:30:00', 12, 4, 7),
+  ('Second-opinion examination', '2025-04-26 21:30:00', 12, 7, 2),
+  ('Requested by lead investigator', '2025-05-06 17:31:00', 14, 3, 7),
+  ('Requested by lead investigator', '2025-05-12 18:31:00', 14, 7, 1),
+  ('Requested by lead investigator', '2025-05-14 00:31:00', 14, 1, 4),
+  ('Court preparation review', '2025-05-18 12:29:00', 15, 4, 1),
+  ('Shift change handover', '2025-06-01 18:16:00', 17, 3, 8),
+  ('Handed over for lab analysis', '2025-06-08 00:16:00', 17, 8, 2),
+  ('Moved to secure storage', '2025-06-10 19:08:00', 18, 4, 3),
+  ('Court preparation review', '2025-06-27 22:14:00', 20, 3, 1),
+  ('Re-verification of file hash', '2025-07-03 02:14:00', 20, 1, 4),
+  ('Shift change handover', '2025-07-17 21:13:00', 22, 2, 4),
+  ('Returned after imaging completed', '2025-07-24 18:40:00', 23, 3, 2),
+  ('Court preparation review', '2025-07-26 21:40:00', 23, 2, 8),
+  ('Requested by lead investigator', '2025-08-03 14:35:00', 24, 4, 6);
